@@ -58,12 +58,11 @@ Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation
 
 $UnattendXml = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml" -UseBasicParsing | Select-Object -ExpandProperty Content
 
-$PantherUnattendPath = 'C:\Windows\Panther\'
+$PantherUnattendPath = 'C:\Windows\Panther\Unattend\'
 if (-NOT (Test-Path $PantherUnattendPath)) {
     New-Item -Path $PantherUnattendPath -ItemType Directory -Force | Out-Null
 }
-$SpecUnattendPath = Join-Path $PantherUnattendPath 'Unattend\unattend.xml'
-
+$SpecUnattendPath = Join-Path $PantherUnattendPath 'unattend.xml'
 
 
 Write-Host -ForegroundColor Cyan "Set Unattend.xml at $SpecUnattendPath"
@@ -74,15 +73,15 @@ Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
 
 #copy the local scripts to the panther folder
 $localscriptsosdfolder = "D:\fblocalscripts"
-$localscriptfolderPath = Join-Path $PantherUnattendPath 'fblocalscripts'
+$localscriptfolderPath = Join-Path 'C:\Windows\Panther\' 'fblocalscripts'
 if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
 }
 Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -Recurse -Force
+
 
 #=======================================================================
 #   Restart-Computer
 #=======================================================================
 Write-Host  -ForegroundColor Green "Restarting in 15 seconds!"
 Start-Sleep -Seconds 15
-wpeutil reboot
