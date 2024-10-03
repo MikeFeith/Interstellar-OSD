@@ -6,7 +6,7 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <Description>Add to autopilot</Description>
-                    <Path>powershell.exe "C:\Windows\Panther\fblocalscripts\Autopilot\Menu.ps1" </Path>
+                    <Path>C:\Windows\Panther\fblocalscripts\Autopilot\Menu.cmd</Path>
                 </RunSynchronousCommand>
                   <RunSynchronousCommand wcm:action="add">
                     <Order>2</Order>
