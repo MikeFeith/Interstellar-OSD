@@ -56,5 +56,24 @@ Write-Output $Global:MyOSDCloud
 #download answer file from github https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml -outfile "C:\Windows\panther\unattend\unattend.xml"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
-#copy the unattend xml from the usb  to C:\Windows\panther\unattend\unattend.xml
-#Copy-Item -Path '' -Destination 'C:\Windows\panther\unattend\unattend.xml' -Force
+
+$UnattendXml = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml" -UseBasicParsing | Select-Object -ExpandProperty Content
+
+$PantherUnattendPath = 'C:\Windows\Panther\'
+if (-NOT (Test-Path $PantherUnattendPath)) {
+    New-Item -Path $PantherUnattendPath -ItemType Directory -Force | Out-Null
+}
+$SpecUnattendPath = Join-Path $PantherUnattendPath 'Invoke-OSDSpecialize.xml'
+
+
+Write-Host -ForegroundColor Cyan "Set Unattend.xml at $SpecUnattendPath"
+$UnattendXml | Out-File -FilePath $SpecUnattendPath -Encoding utf8
+
+Write-Host -ForegroundColor Cyan 'Use-WindowsUnattend'
+Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
+
+#=======================================================================
+#   Restart-Computer
+#=======================================================================
+Write-Host  -ForegroundColor Green "Restarting in 15 seconds!"
+Start-Sleep -Seconds 15
