@@ -1,6 +1,6 @@
 #start-osd cloud
 
-#Thanks to Michiel from interstellar for these variables
+#Thanks to Michiel from interstellar for helping me with this script
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
 $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
@@ -35,8 +35,7 @@ $DriverPack = Get-OSDCloudDriverPack -Product $Product -OSVersion $OSVersion -OS
 if ($DriverPack){
     $Global:MyOSDCloud.DriverPackName = $DriverPack.Name
 }
-$testHPIASupport = $true
-if (TestHPIASupport){
+if ($Manufacturer -match "HP") {
     #$Global:MyOSDCloud.DevMode = [bool]$True
     $Global:MyOSDCloud.HPTPMUpdate = [bool]$True
     {$Global:MyOSDCloud.HPIAALL = [bool]$true}
