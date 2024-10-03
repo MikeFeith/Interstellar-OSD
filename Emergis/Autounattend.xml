@@ -6,7 +6,7 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <Description>OSDCloud Specialize</Description>
-                    <Path>powershell</Path>
+                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')" </Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
