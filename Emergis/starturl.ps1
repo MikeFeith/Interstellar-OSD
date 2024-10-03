@@ -8,7 +8,7 @@ $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11' #Used to Determine Driver Pack
 $OSReleaseID = '24H2' #Used to Determine Driver Pack
 $OSName = 'Windows 11 24H2 x64'
-$OSEdition = 'Pro'
+$OSEdition = 'Enterprise'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-us'
 
@@ -54,17 +54,7 @@ if ($Manufacturer -match "Microsoft") {
 Write-Output $Global:MyOSDCloud
 
 #download answer file from github https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml -outfile "C:\Windows\panther\unattend\unattend.xml"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml" -OutFile "C:\Windows\panther\unattend\unattend.xml"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml" -OutFile "C:\Windows\panther\unattend\unattend.xml"
 #copy the unattend xml from the usb  to C:\Windows\panther\unattend\unattend.xml
 #Copy-Item -Path '' -Destination 'C:\Windows\panther\unattend\unattend.xml' -Force
-
-Restart-Computer
-#yes yes i know
-$PantherUnattendPath = 'C:\Windows\Panther\'
-if (-NOT (Test-Path $PantherUnattendPath)) {
-    New-Item -Path $PantherUnattendPath -ItemType Directory -Force | Out-Null
-}
-
