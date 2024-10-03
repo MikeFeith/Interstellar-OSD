@@ -8,7 +8,7 @@
    <!-- First synchronous command to run -->
    <RunSynchronousCommand wcm:action="add">
       <Order>1</Order>
-      <Path>C:\Windows\Setup\Scripts\preboot-scripts\SetupComplete.cmd</Path>
+      <Path>C:\Windows\system32\cmd.exe</Path>
       <Description>Autopilot</Description>
    </RunSynchronousCommand>
 </RunSynchronous>
