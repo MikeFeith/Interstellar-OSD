@@ -6,7 +6,7 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <Description>OSDCloud Specialize</Description>
-                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')"</Path>
+                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue1')"</Path>
                 </RunSynchronousCommand>
                                 <RunSynchronousCommand wcm:action="add">
                     <Order>2</Order>
@@ -22,7 +22,7 @@
                 <RunAsynchronousCommand wcm:action="add">
                     <Description>Auto Start Prov Tool</Description>
                     <Order>1</Order>
-                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')"</Path>
+                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue2')"</Path>
                 </RunAsynchronousCommand>  
 	    	<RunAsynchronousCommand wcm:action="add">
                     <Description>Tag File</Description>
