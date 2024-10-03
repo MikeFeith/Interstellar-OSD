@@ -76,4 +76,4 @@ Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
 #   Restart-Computer
 #=======================================================================
 Write-Host  -ForegroundColor Green "Restarting in 15 seconds!"
-Start-Sleep -Seconds 15
+Start-Sleep -Seconds 600
