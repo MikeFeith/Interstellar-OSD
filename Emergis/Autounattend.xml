@@ -5,31 +5,15 @@
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <Description>OSDCloud Specialize</Description>
-                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue1')"</Path>
+                    <Description>Add to autopilot</Description>
+                    <Path>powershell.exe "C:\Windows\Panther\fblocalscripts\Autopilot\Menu.ps1" </Path>
                 </RunSynchronousCommand>
-                                <RunSynchronousCommand wcm:action="add">
+                  <RunSynchronousCommand wcm:action="add">
                     <Order>2</Order>
-                    <Description>OSDCloud Specialize</Description>
-                    <Path>cmd /c "echo OK &gt; c:\test1.txt"</Path>
+                    <Description>remove the local scripts</Description>
+                  <Path>powershell -command "Remove-Item -Path 'C:\Windows\Panther\fblocalscripts' -Recurse -Force" </Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
-        </component>
-    </settings>
-    <settings pass="auditUser">
-        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <RunAsynchronous>
-                <RunAsynchronousCommand wcm:action="add">
-                    <Description>Auto Start Prov Tool</Description>
-                    <Order>1</Order>
-                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue2')"</Path>
-                </RunAsynchronousCommand>  
-	    	<RunAsynchronousCommand wcm:action="add">
-                    <Description>Tag File</Description>
-                    <Order>2</Order>
-                    <Path>cmd /c "echo OK &gt; c:\test2.txt"</Path>
-		</RunAsynchronousCommand>
-            </RunAsynchronous>
         </component>
     </settings>
 </unattend>
