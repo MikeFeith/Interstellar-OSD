@@ -6,9 +6,30 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <Description>OSDCloud Specialize</Description>
-                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')" </Path>
+                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')"</Path>
+                </RunSynchronousCommand>
+                                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Description>OSDCloud Specialize</Description>
+                    <Path>cmd /c "echo OK &gt; c:\test1.txt"</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
+        </component>
+    </settings>
+    <settings pass="auditUser">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunAsynchronous>
+                <RunAsynchronousCommand wcm:action="add">
+                    <Description>Auto Start Prov Tool</Description>
+                    <Order>1</Order>
+                    <Path>powershell -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Press OK to continue')"</Path>
+                </RunAsynchronousCommand>  
+	    	<RunAsynchronousCommand wcm:action="add">
+                    <Description>Tag File</Description>
+                    <Order>2</Order>
+                    <Path>cmd /c "echo OK &gt; c:\test2.txt"</Path>
+		</RunAsynchronousCommand>
+            </RunAsynchronous>
         </component>
     </settings>
 </unattend>
