@@ -78,7 +78,9 @@ if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
 }
 Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -Recurse -Force
-Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense
+Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense -Scope AllUsers
+install-module -Name AzureAD -Force -AcceptLicense -Scope AllUsers
+install-module WindowsAutopilotIntune -Force -AcceptLicense -Scope AllUsers
 
 #=======================================================================
 #   Restart-Computer
