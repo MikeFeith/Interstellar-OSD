@@ -73,7 +73,7 @@ Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
 
 #copy the local scripts to the panther folder
 $localscriptsosdfolder = "D:\fblocalscripts"
-$localscriptfolderPath = Join-Path 'C:\Windows\Panther\' 'fblocalscripts'
+$localscriptfolderPath = "C:\Windows\Panther\fblocalscripts"
 if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
 }

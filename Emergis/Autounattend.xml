@@ -3,16 +3,21 @@
     <settings pass="specialize">
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>1</Order>
-                    <Description>Add to autopilot</Description>
-                    <Path>C:\Windows\Panther\fblocalscripts\Autopilot\Menu.cmd</Path>
-                </RunSynchronousCommand>
-                  <RunSynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <Description>remove the local scripts</Description>
+               <RunSynchronousCommand wcm:action="add">
+                  <Order>1</Order>
+                  <Description>Pop up to confirm unattend is working</Description>
+                  <Path>powershell.exe -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Unattend is working')"</Path>
+               </RunSynchronousCommand>
+               <RunSynchronousCommand wcm:action="add">
+                  <Order>2</Order>
+                  <Description>Add to autopilot</Description>
+                  <Path>C:\Windows\Panther\fblocalscripts\Autopilot\Menu.cmd</Path>
+               </RunSynchronousCommand>
+               <RunSynchronousCommand wcm:action="add">
+                  <Order>3</Order>
+                  <Description>remove the local scripts</Description>
                   <Path>powershell -command "Remove-Item -Path 'C:\Windows\Panther\fblocalscripts' -Recurse -Force" </Path>
-                </RunSynchronousCommand>
+               </RunSynchronousCommand>
             </RunSynchronous>
         </component>
     </settings>
