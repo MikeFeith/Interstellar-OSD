@@ -11,7 +11,7 @@
                <RunSynchronousCommand wcm:action="add">
                   <Order>2</Order>
                   <Description>Add to autopilot</Description>
-                  <Path>C:\Windows\Panther\fblocalscripts\Autopilot\Menu.cmd</Path>
+                  <Path>powershell.exe -ExecutionPolicy Bypass -File "C:\Windows\Panther\fblocalscripts\menu.ps1"</Path>
                </RunSynchronousCommand>
                <RunSynchronousCommand wcm:action="add">
                   <Order>3</Order>
