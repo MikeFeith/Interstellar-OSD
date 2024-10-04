@@ -78,7 +78,7 @@ if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
 }
 Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -Recurse -Force
-
+Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense
 
 #=======================================================================
 #   Restart-Computer
