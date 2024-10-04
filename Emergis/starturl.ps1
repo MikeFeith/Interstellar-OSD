@@ -81,6 +81,10 @@ Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -R
 Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
 install-module -Name AzureAD -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
 install-module -Name WindowsAutopilotIntune -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
+Start-Sleep -Seconds 15
+#wait for user input to continue
+Write-Host -ForegroundColor Yellow "Press any key to continue"
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 #=======================================================================
 #   Restart-Computer
