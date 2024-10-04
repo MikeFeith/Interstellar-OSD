@@ -16,10 +16,15 @@
                <RunSynchronousCommand wcm:action="add">
                   <Order>3</Order>
                   <Description>Add to autopilot</Description>
-                  <Path>powershell.exe -ExecutionPolicy Bypass -File "C:\Windows\Panther\fblocalscripts\menu.ps1"</Path>
+                  <Path>C:\Windows\Panther\fblocalscripts\Menu.cmd</Path>
                </RunSynchronousCommand>
                <RunSynchronousCommand wcm:action="add">
                   <Order>4</Order>
+                  <Description>Add to autopilot</Description>
+                  <Path>powershell.exe</Path>
+               </RunSynchronousCommand>
+               <RunSynchronousCommand wcm:action="add">
+                  <Order>5</Order>
                   <Description>remove the local scripts</Description>
                   <Path>powershell -command "Remove-Item -Path 'C:\Windows\Panther\fblocalscripts' -Recurse -Force" </Path>
                </RunSynchronousCommand>
