@@ -85,3 +85,4 @@ Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -R
 #=======================================================================
 Write-Host  -ForegroundColor Green "Restarting in 15 seconds!"
 Start-Sleep -Seconds 15
+restart-computer
