@@ -1,6 +1,5 @@
 #start-osd cloud
 
-#Thanks to Michiel from interstellar for helping me with this script
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
 $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
@@ -78,17 +77,16 @@ if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
 }
 Copy-Item -Path $localscriptsosdfolder\* -Destination $localscriptfolderPath\ -Recurse -Force
-Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
+Install-Script -Name Get-WindowsAutoPilotInfo -Force -AcceptLicense -Scope AllUsers
 install-module -Name AzureAD -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
 install-module -Name WindowsAutopilotIntune -Force -AcceptLicense -Scope AllUsers -SkipPublisherCheck
 Start-Sleep -Seconds 15
 #wait for user input to continue
-Write-Host -ForegroundColor Yellow "Press any key to continue"
+Write-Host -ForegroundColor Yellow "Press any key to reboot the device"
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 #=======================================================================
 #   Restart-Computer
 #=======================================================================
-Write-Host  -ForegroundColor Green "Restarting in 15 seconds!"
-Start-Sleep -Seconds 15
-# powershell gui to reboot pc once the button is clicked
+Write-Host  -ForegroundColor Green "Restarting now!"
+Restart-Computer -Force
