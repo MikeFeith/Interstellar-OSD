@@ -124,7 +124,6 @@ Invoke-Exe reg unload HKLM\TempSYSTEM
 #////////////////////////////////////////////////////////////////////////
 
 
-exit
 
 #copy the local scripts to the panther folder
 $localscriptsosdfolder = "D:\fblocalscripts"
