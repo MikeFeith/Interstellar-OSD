@@ -71,20 +71,60 @@ Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 
-$UnattendXml = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MikeFeith/Interstellar-OSD/refs/heads/main/Emergis/Autounattend.xml" -UseBasicParsing | Select-Object -ExpandProperty Content
+#////////////////////////////////////////////////////////////////////////
+Set-OSDCloudUnattendSpecialize
 
-$PantherUnattendPath = 'C:\Windows\Panther\Unattend\'
+
+$UnattendXml = @'
+<?xml version='1.0' encoding='utf-8'?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Description>OSDCloud Specialize</Description>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command Invoke-OSDSpecialize -Verbose</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                  <Order>2</Order>
+                  <Description>Pop up to confirm unattend is working</Description>
+                  <Path>powershell.exe -Command "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Unattend is working')"</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                  <Order>3</Order>
+                  <Description>Add to autopilot</Description>
+                  <Path>powershell.exe -ExecutionPolicy Bypass -file "C:\Windows\Panther\fblocalscripts\Autopilot\Menu.ps1"</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <Description>Remove OSDCloud Temp Files</Description>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command Remove-Item -Path C:\OSDCloud -Recurse</Path>
+                </RunSynchronousCommand>          
+            </RunSynchronous>
+        </component>
+    </settings>    
+</unattend>
+'@
+#================================================================================================
+#   Set Unattend.xml
+#================================================================================================
+$PantherUnattendPath = 'C:\Windows\Panther'
 if (-NOT (Test-Path $PantherUnattendPath)) {
     New-Item -Path $PantherUnattendPath -ItemType Directory -Force | Out-Null
 }
-$SpecUnattendPath = Join-Path $PantherUnattendPath 'unattend.xml'
+$UnattendPath = Join-Path $PantherUnattendPath 'Invoke-OSDSpecialize.xml'
+$UnattendXml | Out-File -FilePath $UnattendPath -Encoding utf8
+
+Write-Verbose "Setting Unattend in Offline Registry"
+Invoke-Exe reg load HKLM\TempSYSTEM "C:\Windows\System32\Config\SYSTEM"
+Invoke-Exe reg add HKLM\TempSYSTEM\Setup /v UnattendFile /d "C:\Windows\Panther\Invoke-OSDSpecialize.xml" /f
+Invoke-Exe reg unload HKLM\TempSYSTEM
+
+#////////////////////////////////////////////////////////////////////////
 
 
-Write-Host -ForegroundColor Cyan "Set Unattend.xml at $SpecUnattendPath"
-$UnattendXml | Out-File -FilePath $SpecUnattendPath -Encoding utf8
-
-Write-Host -ForegroundColor Cyan 'Use-WindowsUnattend'
-Use-WindowsUnattend -Path 'C:\' -UnattendPath $SpecUnattendPath -Verbose
+exit
 
 #copy the local scripts to the panther folder
 $localscriptsosdfolder = "D:\fblocalscripts"
