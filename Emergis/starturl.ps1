@@ -22,6 +22,7 @@ $Global:MyOSDCloud = [ordered]@{
     RecoveryPartition = [bool]$true
     OEMActivation = [bool]$true
     WindowsUpdate = [bool]$true
+    MSCatalogFirmware = [bool]$true
     WindowsUpdateDrivers = [bool]$true
     WindowsDefenderUpdate = [bool]$true
     SetTimeZone = [bool]$true
