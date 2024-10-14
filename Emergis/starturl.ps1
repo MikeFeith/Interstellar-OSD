@@ -8,8 +8,8 @@ $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
 $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11' #Used to Determine Driver Pack
-$OSReleaseID = '24H2' #Used to Determine Driver Pack
-$OSName = 'Windows 11 24H2 x64'
+$OSReleaseID = '23H2' #Used to Determine Driver Pack
+$OSName = 'Windows 11 23H2 x64'
 $OSEdition = 'Enterprise'
 $OSActivation = 'Volume'
 $OSLanguage = 'nl-nl'
@@ -22,7 +22,7 @@ $Global:MyOSDCloud = [ordered]@{
     RecoveryPartition = [bool]$true
     OEMActivation = [bool]$true
     WindowsUpdate = [bool]$true
-    MSCatalogFirmware = [bool]$true
+    #MSCatalogFirmware = [bool]$true Temporary disabled
     WindowsUpdateDrivers = [bool]$true
     WindowsDefenderUpdate = [bool]$true
     SetTimeZone = [bool]$true
@@ -32,6 +32,32 @@ $Global:MyOSDCloud = [ordered]@{
     SyncMSUpCatDriverUSB = [bool]$true
     CheckSHA1 = [bool]$true
 }
+
+#=======================================================================
+#   OSDCLOUD Image
+#=======================================================================
+$uselocalimage = $true
+#check if the OSDCloudUSB drive is available
+$usbavailable = Test-Path "D:\OSDCloud\OS"
+
+if ($uselocalimage -eq $true -and $usbavailable -eq $true) {
+    $WIMName = 'Windows 11 23H2 - okt.wim'
+    $ImageFileItem = Find-OSDCloudFile -Name $WIMName  -Path '\OSDCloud\OS\'
+    if ($ImageFileItem){
+        $ImageFileItem = $ImageFileItem | Where-Object {$_.FullName -notlike "C*"} | Where-Object {$_.FullName -notlike "X*"} | Select-Object -First 1
+        if ($ImageFileItem){
+            $ImageFileName = Split-Path -Path $ImageFileItem.FullName -Leaf
+            $ImageFileFullName = $ImageFileItem.FullName
+            
+            $Global:MyOSDCloud.ImageFileItem = $ImageFileItem
+            $Global:MyOSDCloud.ImageFileName = $ImageFileName
+            $Global:MyOSDCloud.ImageFileFullName = $ImageFileFullName
+            $Global:MyOSDCloud.OSImageIndex = 6
+        }
+    }
+}
+
+
 
 #=======================================================================
 #   Specific Driver Pack
@@ -84,12 +110,12 @@ $UnattendXml = @'
                 <RunSynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <Description>Remove OSDCloud Temp Files</Description>
-                    <Path>Powershell -ExecutionPolicy Bypass -Command Remove-Item -Path C:\OSDCloud -Recurse</Path>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command "#Remove-Item -Path C:\OSDCloud -Recurse"</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <Description>Remove localscript Files</Description>
-                    <Path>Powershell -ExecutionPolicy Bypass -Command Remove-Item -Path C:\Windows\Panther\fblocalscripts -Recurse</Path>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command "#Remove-Item -Path C:\Windows\Panther\fblocalscripts -Recurse"</Path>
                 </RunSynchronousCommand>             
             </RunSynchronous>
         </component>
