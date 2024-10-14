@@ -39,20 +39,22 @@ $Global:MyOSDCloud = [ordered]@{
 #=======================================================================
 
 #developermode asks for a keypress before rebooting
-$askbeforereboot = $true
+$askbeforereboot = $false
 
 #=======================================================================
 #   LOCAL DRIVE LETTERS
 #=======================================================================
 function Get-WinPEDrive {
     $WinPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
+    write-host "Current WINPE drive is: $WinPEDrive"
     return $WinPEDrive
 }
 function Get-OSDCloudDrive {
     $OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloudUSB' }).DeviceID
+    write-host "Current OSDCLOUD Drive is: $OSDCloudDrive"
     return $OSDCloudDrive
 }
-Write-Host "WINPE Drive:"Get-WinPEDrive
+Write-Host "WINPE Drive:" Get-WinPEDrive
 Write-Host "OSDCloud Drive: "Get-OSDCloudDrive
 start-sleep -Seconds 10
 
