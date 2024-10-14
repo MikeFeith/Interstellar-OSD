@@ -33,13 +33,20 @@ $Global:MyOSDCloud = [ordered]@{
     CheckSHA1 = [bool]$true
 }
 
+
+#=======================================================================
+#   GENERAL VARIABLES
+#=======================================================================
+
+#developermode asks for a keypress before rebooting
+$askbeforereboot = $true
+
 #=======================================================================
 #   LOCAL DRIVE LETTERS
 #=======================================================================
 
 $WINPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
 $OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloudUSB' }).DeviceID
-$developermode = $true
 Write-Host "WINPE Drive: $WINPEDrive"
 Write-Host "OSDCloud Drive: $OSDCloudDrive"
 start-sleep -Seconds 10
@@ -159,7 +166,7 @@ install-module -Name WindowsAutopilotIntune -Force -AcceptLicense -Scope AllUser
 #=======================================================================
 #   DEVELOPER USER CONFIRMATION TO REBOOT
 #=======================================================================
-if ($developermode -eq $true) {
+if ($askbeforereboot -eq $true) {
     Write-Host -ForegroundColor Yellow "Press any key to reboot the device"
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
