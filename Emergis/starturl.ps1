@@ -34,13 +34,19 @@ $Global:MyOSDCloud = [ordered]@{
 }
 
 #=======================================================================
+#   LOCAL DRIVE LETTERS
+#=======================================================================
+
+$WINPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
+$OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloud' }).DeviceID
+
+#=======================================================================
 #   OSDCLOUD Image
 #=======================================================================
 $uselocalimage = $true
-
+$WIMName = 'Windows 11 23H2 - okt.wim'
 
 if ($uselocalimage -eq $true) {
-    $WIMName = 'Windows 11 23H2 - okt.wim'
     $ImageFileItem = Find-OSDCloudFile -Name $WIMName  -Path '\OSDCloud\OS\Windows 11 23H2'
     if ($ImageFileItem){
         $ImageFileItem = $ImageFileItem | Where-Object {$_.FullName -notlike "C*"} | Where-Object {$_.FullName -notlike "X*"} | Select-Object -First 1
@@ -137,7 +143,7 @@ Invoke-Exe reg unload HKLM\TempSYSTEM
 #=======================================================================
 #   OSDCLOUD Specialize Scripts and modules
 #=======================================================================
-$localscriptsosdfolder = "D:\fblocalscripts"
+$localscriptsosdfolder = "$WINPEDrive\fblocalscripts"
 $localscriptfolderPath = "C:\Windows\Panther\fblocalscripts"
 if (-NOT (Test-Path "$localscriptfolderPath")) {
     New-Item -Path "$localscriptfolderPath" -ItemType Directory -Force | Out-Null
