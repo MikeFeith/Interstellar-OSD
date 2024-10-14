@@ -39,6 +39,9 @@ $Global:MyOSDCloud = [ordered]@{
 
 $WINPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
 $OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloud' }).DeviceID
+Write-Host "WINPE Drive: $WINPEDrive"
+Write-Host "OSDCloud Drive: $OSDCloudDrive"
+start-sleep -Seconds 10
 
 #=======================================================================
 #   OSDCLOUD Image
