@@ -45,6 +45,13 @@ if ($uselocalimage -eq $true -and $usbavailable -eq $true) {
     #wait for 10 seconds
     Start-Sleep -Seconds 10
 }
+else {
+    Write-Output "Using online image, since the USB drive is not available"
+    #show the test-path result
+    Write-Output $usbavailable
+    #wait for 10 seconds
+    Start-Sleep -Seconds 10
+}
 
 if ($uselocalimage -eq $true -and $usbavailable -eq $true) {
     $WIMName = 'Windows 11 23H2 - okt.wim'
