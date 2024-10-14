@@ -38,7 +38,8 @@ $Global:MyOSDCloud = [ordered]@{
 #=======================================================================
 
 $WINPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
-$OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloud' }).DeviceID
+$OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloudUSB' }).DeviceID
+$developermode = $true
 Write-Host "WINPE Drive: $WINPEDrive"
 Write-Host "OSDCloud Drive: $OSDCloudDrive"
 start-sleep -Seconds 10
@@ -158,11 +159,10 @@ install-module -Name WindowsAutopilotIntune -Force -AcceptLicense -Scope AllUser
 #=======================================================================
 #   DEVELOPER USER CONFIRMATION TO REBOOT
 #=======================================================================
-Start-Sleep -Seconds 15
-#wait for user input to continue
-Write-Host -ForegroundColor Yellow "Press any key to reboot the device"
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
+if ($developermode -eq $true) {
+    Write-Host -ForegroundColor Yellow "Press any key to reboot the device"
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}
 #=======================================================================
 #   REBOOT DEVICE
 #=======================================================================
