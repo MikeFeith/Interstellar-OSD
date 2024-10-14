@@ -44,11 +44,16 @@ $askbeforereboot = $true
 #=======================================================================
 #   LOCAL DRIVE LETTERS
 #=======================================================================
-
-$WINPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
-$OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloudUSB' }).DeviceID
-Write-Host "WINPE Drive: $WINPEDrive"
-Write-Host "OSDCloud Drive: $OSDCloudDrive"
+function Get-WinPEDrive {
+    $WinPEDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'WINPE' }).DeviceID
+    return $WinPEDrive
+}
+function Get-OSDCloudDrive {
+    $OSDCloudDrive = (Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -eq 'OSDCloudUSB' }).DeviceID
+    return $OSDCloudDrive
+}
+Write-Host "WINPE Drive:"Get-WinPEDrive
+Write-Host "OSDCloud Drive: "Get-OSDCloudDrive
 start-sleep -Seconds 10
 
 #=======================================================================
@@ -154,6 +159,7 @@ Invoke-Exe reg unload HKLM\TempSYSTEM
 #=======================================================================
 #   OSDCLOUD Specialize Scripts and modules
 #=======================================================================
+$WINPEDrive = Get-WinPEDrive
 $localscriptsosdfolder = "$WINPEDrive\fblocalscripts"
 $localscriptfolderPath = "C:\Windows\Panther\fblocalscripts"
 if (-NOT (Test-Path "$localscriptfolderPath")) {
