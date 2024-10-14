@@ -37,23 +37,9 @@ $Global:MyOSDCloud = [ordered]@{
 #   OSDCLOUD Image
 #=======================================================================
 $uselocalimage = $true
-#check if the OSDCloudUSB drive is available
-$usbavailable = Test-Path "D:\OSDCloud\OS"
-#if the USB is available and the local image is set to true write a message to the console
-if ($uselocalimage -eq $true -and $usbavailable -eq $true) {
-    Write-Output "Using local image, since the USB drive is available"
-    #wait for 10 seconds
-    Start-Sleep -Seconds 10
-}
-else {
-    Write-Output "Using online image, since the USB drive is not available"
-    #show the test-path result
-    Write-Output $usbavailable
-    #wait for 10 seconds
-    Start-Sleep -Seconds 10
-}
 
-if ($uselocalimage -eq $true -and $usbavailable -eq $true) {
+
+if ($uselocalimage -eq $true) {
     $WIMName = 'Windows 11 23H2 - okt.wim'
     $ImageFileItem = Find-OSDCloudFile -Name $WIMName  -Path '\OSDCloud\OS\Windows 11 23H2'
     if ($ImageFileItem){
