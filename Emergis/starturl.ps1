@@ -20,16 +20,16 @@ $OSLanguage = 'nl-nl'
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
     RecoveryPartition = [bool]$true
-    OEMActivation = [bool]$true
-    WindowsUpdate = [bool]$true
-    MSCatalogFirmware = [bool]$true
-    WindowsUpdateDrivers = [bool]$true
-    WindowsDefenderUpdate = [bool]$true
+    OEMActivation = [bool]$false #temporarily disabled
+    WindowsUpdate = [bool]$false #temporarily disabled
+    MSCatalogFirmware = [bool]$False #temporarily disabled
+    WindowsUpdateDrivers = [bool]$false #temporarily disabled
+    WindowsDefenderUpdate = [bool]$False #temporarily disabled
     SetTimeZone = [bool]$true
     SkipClearDisk = [bool]$false
     ClearDiskConfirm = [bool]$false
     ShutdownSetupComplete = [bool]$false
-    SyncMSUpCatDriverUSB = [bool]$true
+    SyncMSUpCatDriverUSB = [bool]$False #temporarily disabled
     CheckSHA1 = [bool]$true
 }
 
@@ -90,7 +90,7 @@ $DriverPack = Get-OSDCloudDriverPack -Product $Product -OSVersion $OSVersion -OS
 if ($DriverPack){
     $Global:MyOSDCloud.DriverPackName = $DriverPack.Name
 }
-$UseHPIA = $true
+$UseHPIA = $false #temporarily disabled
 if ($Manufacturer -match "HP" -and $UseHPIA -eq $true) {
     #$Global:MyOSDCloud.DevMode = [bool]$True
     $Global:MyOSDCloud.HPTPMUpdate = [bool]$True
