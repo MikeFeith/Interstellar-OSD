@@ -20,16 +20,16 @@ $OSLanguage = 'nl-nl'
 $Global:MyOSDCloud = [ordered]@{
     Restart               = [bool]$false
     RecoveryPartition     = [bool]$true
-    OEMActivation         = [bool]$true #temporarily disabled
-    WindowsUpdate         = [bool]$false #temporarily disabled
-    MSCatalogFirmware     = [bool]$False #temporarily disabled
+    OEMActivation         = [bool]$true 
+    WindowsUpdate         = [bool]$true #temporarily disabled
+    MSCatalogFirmware     = [bool]$true #temporarily disabled
     WindowsUpdateDrivers  = [bool]$false #temporarily disabled this is causing long delays on the getting ready screen before the oobe (almost 10 minutes)
-    WindowsDefenderUpdate = [bool]$false #temporarily disabled
+    WindowsDefenderUpdate = [bool]$false #temporarily disabled same thing almost 10 minutes
     SetTimeZone           = [bool]$true
     SkipClearDisk         = [bool]$false
     ClearDiskConfirm      = [bool]$false
     ShutdownSetupComplete = [bool]$false
-    SyncMSUpCatDriverUSB  = [bool]$true #temporarily disabled
+    SyncMSUpCatDriverUSB  = [bool]$true #temporarily disabled - no impact
     CheckSHA1             = [bool]$true
 }
 
