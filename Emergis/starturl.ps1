@@ -18,19 +18,19 @@ $OSLanguage = 'nl-nl'
 #   OSDCLOUD VARS
 #=======================================================================
 $Global:MyOSDCloud = [ordered]@{
-    Restart = [bool]$False
-    RecoveryPartition = [bool]$true
-    OEMActivation = [bool]$false #temporarily disabled
-    WindowsUpdate = [bool]$false #temporarily disabled
-    MSCatalogFirmware = [bool]$False #temporarily disabled
-    WindowsUpdateDrivers = [bool]$false #temporarily disabled
+    Restart               = [bool]$false
+    RecoveryPartition     = [bool]$true
+    OEMActivation         = [bool]$true #temporarily disabled
+    WindowsUpdate         = [bool]$false #temporarily disabled
+    MSCatalogFirmware     = [bool]$False #temporarily disabled
+    WindowsUpdateDrivers  = [bool]$false #temporarily disabled
     WindowsDefenderUpdate = [bool]$False #temporarily disabled
-    SetTimeZone = [bool]$true
-    SkipClearDisk = [bool]$false
-    ClearDiskConfirm = [bool]$false
+    SetTimeZone           = [bool]$true
+    SkipClearDisk         = [bool]$false
+    ClearDiskConfirm      = [bool]$false
     ShutdownSetupComplete = [bool]$false
-    SyncMSUpCatDriverUSB = [bool]$False #temporarily disabled
-    CheckSHA1 = [bool]$true
+    SyncMSUpCatDriverUSB  = [bool]$False #temporarily disabled
+    CheckSHA1             = [bool]$true
 }
 
 
@@ -66,9 +66,9 @@ $WIMName = 'Windows 11 23H2 - okt.wim'
 
 if ($uselocalimage -eq $true) {
     $ImageFileItem = Find-OSDCloudFile -Name $WIMName  -Path '\OSDCloud\OS\Windows 11 23H2'
-    if ($ImageFileItem){
-        $ImageFileItem = $ImageFileItem | Where-Object {$_.FullName -notlike "C*"} | Where-Object {$_.FullName -notlike "X*"} | Select-Object -First 1
-        if ($ImageFileItem){
+    if ($ImageFileItem) {
+        $ImageFileItem = $ImageFileItem | Where-Object { $_.FullName -notlike "C*" } | Where-Object { $_.FullName -notlike "X*" } | Select-Object -First 1
+        if ($ImageFileItem) {
             $ImageFileName = Split-Path -Path $ImageFileItem.FullName -Leaf
             $ImageFileFullName = $ImageFileItem.FullName
             
@@ -87,14 +87,14 @@ if ($uselocalimage -eq $true) {
 #=======================================================================
 $DriverPack = Get-OSDCloudDriverPack -Product $Product -OSVersion $OSVersion -OSReleaseID $OSReleaseID
 
-if ($DriverPack){
+if ($DriverPack) {
     $Global:MyOSDCloud.DriverPackName = $DriverPack.Name
 }
-$UseHPIA = $false #temporarily disabled
+$UseHPIA = $true #temporarily disabled
 if ($Manufacturer -match "HP" -and $UseHPIA -eq $true) {
     #$Global:MyOSDCloud.DevMode = [bool]$True
     $Global:MyOSDCloud.HPTPMUpdate = [bool]$True
-    {$Global:MyOSDCloud.HPIAALL = [bool]$true}
+    { $Global:MyOSDCloud.HPIAALL = [bool]$true }
     $Global:MyOSDCloud.HPBIOSUpdate = [bool]$true
     $Global:MyOSDCloud.HPCMSLDriverPackLatest = [bool]$true
 }
