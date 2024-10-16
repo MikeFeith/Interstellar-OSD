@@ -24,12 +24,12 @@ $Global:MyOSDCloud = [ordered]@{
     WindowsUpdate         = [bool]$false #temporarily disabled
     MSCatalogFirmware     = [bool]$False #temporarily disabled
     WindowsUpdateDrivers  = [bool]$false #temporarily disabled this is causing long delays on the getting ready screen before the oobe (almost 10 minutes)
-    WindowsDefenderUpdate = [bool]$true #temporarily disabled
+    WindowsDefenderUpdate = [bool]$false #temporarily disabled
     SetTimeZone           = [bool]$true
     SkipClearDisk         = [bool]$false
     ClearDiskConfirm      = [bool]$false
     ShutdownSetupComplete = [bool]$false
-    SyncMSUpCatDriverUSB  = [bool]$False #temporarily disabled
+    SyncMSUpCatDriverUSB  = [bool]$true #temporarily disabled
     CheckSHA1             = [bool]$true
 }
 
