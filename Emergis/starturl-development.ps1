@@ -19,8 +19,8 @@ $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
 $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11' #Used to Determine Driver Pack
-$OSReleaseID = '24H2' #Used to Determine Driver Pack
-$OSName = 'Windows 11 24H2 x64'
+$OSReleaseID = '23H2' #Used to Determine Driver Pack
+$OSName = 'Windows 11 23H2 x64'
 $OSEdition = 'Enterprise'
 $OSActivation = 'Volume'
 $OSLanguage = 'nl-nl'
@@ -73,7 +73,7 @@ start-sleep -Seconds 10
 #=======================================================================
 #   OSDCLOUD Image
 #=======================================================================
-$uselocalimage = $false
+$uselocalimage = $true
 $WIMName = 'Windows 11 23H2 - okt.wim'
 
 if ($uselocalimage -eq $true) {
