@@ -134,12 +134,12 @@ $UnattendXml = @'
                 <RunSynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <Description>Remove OSDCloud Temp Files</Description>
-                    <Path>Powershell -ExecutionPolicy Bypass -Command "#Remove-Item -Path C:\OSDCloud -Recurse"</Path>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command "Remove-Item -Path C:\OSDCloud -Recurse"</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <Description>Remove localscript Files</Description>
-                    <Path>Powershell -ExecutionPolicy Bypass -Command "#Remove-Item -Path C:\Windows\Panther\fblocalscripts -Recurse"</Path>
+                    <Path>Powershell -ExecutionPolicy Bypass -Command "Remove-Item -Path C:\Windows\Panther\fblocalscripts -Recurse"</Path>
                 </RunSynchronousCommand>             
             </RunSynchronous>
         </component>
